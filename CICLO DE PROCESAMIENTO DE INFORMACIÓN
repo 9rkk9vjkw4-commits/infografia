@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ciclo de procesamiento de la información</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--page:#E4ECF2;--ink:#0E2A47;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#0B1622}}
+:root[data-theme="dark"]{--page:#0B1622}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--page);display:flex;justify-content:center;padding:16px;font-family:'Nunito','Segoe UI',Arial,sans-serif}
+.frame{width:min(100%,11in);aspect-ratio:11/8;background:#F3F8FB;box-shadow:0 6px 30px rgba(0,0,0,.25);overflow:hidden}
+svg{display:block;width:100%;height:100%}
+text{font-family:'Nunito','Segoe UI',Arial,sans-serif}
+.b{font-weight:800}
+.flow{stroke-dasharray:9 9;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-18}}
+.glow{opacity:0;animation:g 8s infinite}
+@keyframes g{0%,20%{opacity:1}32%,100%{opacity:0}}
+.bar{transform-box:fill-box;transform-origin:bottom;animation:bar 2s ease-in-out infinite}
+@keyframes bar{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pulse{animation:pl 1.6s ease-in-out infinite}
+@keyframes pl{0%,100%{opacity:.45}50%{opacity:1}}
+.rise{animation:rise 2.4s ease-in infinite}
+@keyframes rise{0%{transform:translateY(8px);opacity:0}30%{opacity:1}100%{transform:translateY(-10px);opacity:0}}
+@media print{@page{size:11in 8in;margin:0}body{padding:0;background:#fff}.frame{width:11in;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="frame">
+<svg id="s" viewBox="0 0 1056 768" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Infografía del ciclo de procesamiento de la información: entrada, procesamiento, salida y almacenamiento">
+<rect width="1056" height="768" fill="#F3F8FB"/>
+<rect width="1056" height="8" fill="#0E2A47"/>
+<text x="40" y="58" class="b" font-size="34" fill="#0E2A47">El ciclo de procesamiento de la información</text>
+<text x="40" y="90" font-size="16" fill="#3E5C76">Así convierte una computadora los datos en información útil, paso a paso.</text>
+<g class="b" font-size="15" fill="#2E86DE">
+<text x="880" y="44" class="pulse">0 1 1 0 1 0 0 1</text>
+<text x="880" y="66" class="pulse" style="animation-delay:.5s">1 0 0 1 0 1 1 0</text>
+<text x="880" y="88" class="pulse" style="animation-delay:1s">0 1 0 1 1 0 1 0</text>
+</g>
+<!-- pista del ciclo -->
+<path d="M190 240H866V510H190Z" fill="none" stroke="#9DB8CC" stroke-width="4" class="flow"/>
+<g fill="#0E2A47"><polygon points="518,226 540,240 518,254"/><polygon points="852,362 880,362 866,386"/><polygon points="538,496 516,510 538,524"/><polygon points="176,388 204,388 190,364"/></g>
+<circle r="10" fill="#F5B13D" stroke="#fff" stroke-width="3"><animateMotion dur="8s" repeatCount="indefinite" path="M190,240H866V510H190Z" keyPoints="0;.357;.5;.857;1" keyTimes="0;.25;.5;.75;1" calcMode="linear"/></circle>
+<!-- centro -->
+<circle cx="528" cy="375" r="108" fill="none" stroke="#2E86DE" stroke-width="3" stroke-dasharray="3 12" stroke-linecap="round" class="spin"/>
+<circle cx="528" cy="375" r="88" fill="#0E2A47"/>
+<text x="528" y="352" text-anchor="middle" class="b" font-size="17" fill="#fff">Datos</text>
+<path d="M512 366h32m-8-8l8 8-8 8" stroke="#F5B13D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="528" y="402" text-anchor="middle" class="b" font-size="17" fill="#fff">Información</text>
+<text x="528" y="426" text-anchor="middle" font-size="12" fill="#9FC3E3">y el ciclo se repite</text>
+<!-- ejemplo -->
+<rect x="40" y="642" width="976" height="110" rx="16" fill="#DCEAF3"/>
+<text x="60" y="668" class="b" font-size="15" fill="#0E2A47">Ejemplo cotidiano: tomar y guardar una foto con el celular</text>
+<g id="ex"></g>
+</svg>
+</div>
+<script>
+const N='#0E2A47',s=document.getElementById('s');
+const cards=[
+{x:40,y:125,c:'#2E86DE',tc:'#fff',n:1,t:'Entrada',delay:0,
+d:['Se recogen los datos','en bruto del exterior','y se envían a la','computadora.'],
+e:['teclado, mouse, micrófono, cámara,','escáner y pantalla táctil.'],
+icon:`<rect x="0" y="34" width="92" height="56" rx="9" fill="#DCEBFA" stroke="#2E86DE" stroke-width="3"/>${[0,1,2].map(j=>[0,1,2,3].map(i=>`<rect x="${8+i*21}" y="${43+j*14}" width="16" height="10" rx="2.5" fill="${i==2&&j==1?'#2E86DE':'#fff'}">${i==2&&j==1?'<animate attributeName="fill" values="#fff;#2E86DE;#fff" dur="1.6s" repeatCount="indefinite"/>':''}</rect>`).join('')).join('')}<g class="b" font-size="14" fill="#2E86DE"><text x="26" y="24" class="rise">1</text><text x="46" y="24" class="rise" style="animation-delay:.8s">0</text><text x="66" y="24" class="rise" style="animation-delay:1.6s">1</text></g>`},
+{x:706,y:125,c:'#F5B13D',tc:N,n:2,t:'Procesamiento',delay:2,
+d:['La CPU (unidad central)','calcula, compara y','ordena los datos según','las instrucciones.'],
+e:['CPU, memoria RAM, tarjeta gráfica.','Acciones: sumar, ordenar, filtrar.'],
+icon:`<path d="M30 6v14M46 6v14M62 6v14M30 76v14M46 76v14M62 76v14M2 34h14M2 48h14M2 62h14M76 34h14M76 48h14M76 62h14" stroke="#C98A12" stroke-width="3.5" stroke-linecap="round"/><rect x="16" y="16" width="60" height="60" rx="9" fill="#FFF1D0" stroke="#F5B13D" stroke-width="3.5"/><rect x="30" y="30" width="32" height="32" rx="5" fill="#F5B13D" class="pulse"/><text x="46" y="51" text-anchor="middle" class="b" font-size="12" fill="${N}">CPU</text>`},
+{x:706,y:395,c:'#19B5A5',tc:'#fff',n:3,t:'Salida',delay:4,
+d:['Los datos ya procesados','se convierten en','información que la','persona puede usar.'],
+e:['monitor, impresora, bocinas,','proyector y archivos generados.'],
+icon:`<rect x="2" y="8" width="88" height="60" rx="7" fill="${N}"/><rect x="9" y="15" width="74" height="46" rx="3" fill="#E1F8F5"/>${[17,34,51,68].map((x,i)=>`<rect class="bar" x="${x}" y="${[30,22,36,26][i]}" width="11" height="${[27,35,21,31][i]}" rx="2" fill="#19B5A5" style="animation-delay:${i*.35}s"/>`).join('')}<rect x="38" y="68" width="16" height="9" fill="#5A7A94"/><rect x="25" y="77" width="42" height="6" rx="3" fill="#5A7A94"/>`},
+{x:40,y:395,c:'#6C63D9',tc:'#fff',n:4,t:'Almacenamiento',delay:6,
+d:['Los datos y resultados','se guardan para usarlos','después, sin perder','lo trabajado.'],
+e:['disco duro, SSD, memoria USB,','tarjeta SD y la nube.'],
+icon:`<path d="M10 24v50a36 11 0 0 0 72 0V24z" fill="#E6E4FB" stroke="#6C63D9" stroke-width="3.5"/><path d="M10 44a36 11 0 0 0 72 0M10 60a36 11 0 0 0 72 0" fill="none" stroke="#6C63D9" stroke-width="3"/><ellipse cx="46" cy="24" rx="36" ry="11" fill="#F4F3FE" stroke="#6C63D9" stroke-width="3.5"/><circle cx="70" cy="54" r="3.5" fill="#19B5A5" class="pulse"/><circle cx="70" cy="70" r="3.5" fill="#F5B13D" class="pulse" style="animation-delay:.8s"/>`}
+];
+s.insertAdjacentHTML('beforeend',cards.map(k=>`<g transform="translate(${k.x},${k.y})"><rect width="310" height="230" rx="16" fill="#fff" stroke="${k.c}" stroke-width="2.5"/><path d="M0 44V16A16 16 0 0 1 16 0h278a16 16 0 0 1 16 16v28z" fill="${k.c}"/><circle cx="27" cy="22" r="14" fill="#fff"/><text x="27" y="28" text-anchor="middle" class="b" font-size="16" fill="${N}">${k.n}</text><text x="52" y="29" class="b" font-size="20" fill="${k.tc}">${k.t}</text><g transform="translate(10,62)">${k.icon}</g>${k.d.map((l,i)=>`<text x="124" y="${80+i*19}" font-size="14" fill="${N}">${l}</text>`).join('')}<line x1="16" x2="294" y1="172" y2="172" stroke="#D5E3EC" stroke-width="2"/><text x="16" y="193" font-size="12" fill="${N}"><tspan class="b">Ejemplos: </tspan>${k.e[0]}</text><text x="16" y="212" font-size="12" fill="${N}">${k.e[1]}</text><rect class="glow" x="-3" y="-3" width="316" height="236" rx="19" fill="none" stroke="${k.c}" stroke-width="5" style="animation-delay:${k.delay}s"/></g>`).join(''));
+const ex=[['Entrada','la cámara capta la luz','#2E86DE','#fff'],['Procesamiento','el chip ajusta el color','#F5B13D',N],['Salida','la foto se ve en pantalla','#19B5A5','#fff'],['Almacenamiento','se guarda en la galería','#6C63D9','#fff']];
+document.getElementById('ex').innerHTML=ex.map((e,i)=>{const x=60+i*235;return `<rect x="${x}" y="682" width="215" height="54" rx="12" fill="${e[2]}"/><text x="${x+14}" y="704" class="b" font-size="14" fill="${e[3]}">${i+1}. ${e[0]}</text><text x="${x+14}" y="724" font-size="13" fill="${e[3]}">${e[1]}</text>${i<3?`<path d="M${x+221} 709h9m-4-4l4 4-4 4" stroke="${N}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`:''}`}).join('');
+</script>
+</body>
+</html>
